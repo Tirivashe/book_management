@@ -1,8 +1,12 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"log"
+
+	"github.com/Tirivashe/book_management/config"
+)
 
 func main() {
-	app := fiber.New()
-	app.Listen(":3000")
+	app := config.NewAPIServer(":3000")
+	log.Fatal(app.Start())
 }
