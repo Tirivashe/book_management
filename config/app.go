@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 
+	"github.com/Tirivashe/book_management/routes"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,9 +13,11 @@ type APIServer struct {
 }
 
 func NewAPIServer(addr string) *APIServer {
+	app := fiber.New()
+	routes.RegisterRoutes(app)
 	return &APIServer{
 		addr: addr,
-		mux: fiber.New(),
+		mux: app,
 	}
 }
 
@@ -27,4 +30,5 @@ func (s *APIServer) Start() error {
 	log.Println("Server started at: ", s.addr)
 	return nil
 }
+
 
