@@ -1,3 +1,3 @@
 # Application
 
-Small and simple Go REST API
+Small and very simple Go REST API for book management
