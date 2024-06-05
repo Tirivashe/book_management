@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 
+	"github.com/Tirivashe/book_management/db"
 	"github.com/Tirivashe/book_management/routes"
 	"github.com/gofiber/fiber/v2"
 )
@@ -10,6 +11,10 @@ import (
 type APIServer struct {
 	addr string
 	mux *fiber.App
+}
+
+func init() {
+	db.ConnectDatabase()
 }
 
 func NewAPIServer(addr string) *APIServer {
