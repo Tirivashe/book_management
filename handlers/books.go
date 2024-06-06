@@ -45,7 +45,20 @@ func CreateBook(c *fiber.Ctx) error {
 
 func UpdateBook(c *fiber.Ctx) error {
 	id := c.Params("id")
-	return c.SendString("Update book by id, " + id)
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		return err
+	}
+	var book models.BookDto
+	if err := c.BodyParser(&book); err != nil {
+		return err
+	}
+	bookModel, _ := models.GetBookById(idInt)
+	if bookModel.ID == 0 {
+		return c.Status(404).JSON(fiber.Map{"message": "Book not found"})
+	}
+	bookModel.UpdateBook(book)
+	return c.Status(200).JSON(fiber.Map{ "message": "Book updated"})
 }
 func DeleteBook(c *fiber.Ctx) error {
 	id := c.Params("id")

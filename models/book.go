@@ -34,12 +34,17 @@ func GetBookById(id int) (*Book, *gorm.DB) {
 	return &book, db
 }
 
-// func (b *Book) UpdateBook() *Book {
-	
-// }
+func (b *Book) UpdateBook(book BookDto){
+	updatedBook := &Book{
+		Title:       book.Title,
+		Publication: book.Publication,
+		Author:      book.Author,
+	}
+	database.Model(&Book{}).Where("id = ?", b.ID).Updates(updatedBook)
+}
 
 func DeleteBook(id int) Book {
 	var book Book
-	database.Where("id = ?", id).Delete(book)
+	database.Where("id = ?", id).Delete(&book)
 	return book
 }
