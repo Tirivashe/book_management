@@ -10,7 +10,7 @@ import (
 func GetBooks(c *fiber.Ctx) error {
 	books := models.GetAllBooks()
 	c.Set("Content-Type", "application/json")
-	return c.JSON(books)
+	return c.Status(200).JSON(books)
 }
 
 func GetBookById(c *fiber.Ctx) error {
@@ -26,7 +26,7 @@ func GetBookById(c *fiber.Ctx) error {
 	}
 
 	c.Set("Content-Type", "application/json")
-	return c.JSON(book)
+	return c.Status(200).JSON(book)
 }
 
 func CreateBook(c *fiber.Ctx) error {
