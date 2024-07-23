@@ -6,8 +6,12 @@ import (
 )
 
 var database *gorm.DB
+
 func init() {
 	db.ConnectDatabase()
 	database = db.GetDB()
-	database.AutoMigrate(&Book{})
+	err := database.AutoMigrate(&Book{})
+	if err != nil {
+		panic(err)
+	}
 }
